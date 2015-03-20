@@ -1,39 +1,71 @@
  Author:     Minglei Yin, axhiao@gmail.com
+
  Date:       Mar 30, 2015
+
  Update:     Mar 30, 2015
+
  Problem:    Subsets
+
  Difficulty: Easy
+
  Source:     http://leetcode.com/onlinejudge#question_78
+
  Notes:
+
  Given a set of distinct integers, S, return all possible subsets.
+
  Note:
- Elements in a subset must be in non-descending order.
- The solution set must not contain duplicate subsets.
+
+ Elements in a subset must be in non-descending order. The solution set must not contain duplicate subsets.
+
  For example,
+
  If S = [1,2,3], a solution is:
+
  [
+
   [3],
+
   [1],
+
   [2],
+
   [1,2,3],
+
   [1,3],
+
   [2,3],
+
   [1,2],
+
   []
+
  ]
+
  Solution: 
+
 1. Recursive solution.
+
 2. Iterative solution
+
 3.Binary solution
 
 
+
 In addition, this problem might have another form. 
+
 __Notes:__
+
  Given a collection of integers that might contain __duplicates__, S, return all possible subsets.
 
+
 Solution:
+
 1. Recursive solution
+
 2. Iterative solution 
+
+
 
 
 __注意:__
