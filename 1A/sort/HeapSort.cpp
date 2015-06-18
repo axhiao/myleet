@@ -53,9 +53,7 @@ void HeapSort::_max_heapify(int i)
 	}
 	if (i != largest)
 	{
-		int tmp = data[i];
-		data[i] = data[largest];
-		data[largest] = tmp;
+		std::swap(data[i], data[largest]);
 		_max_heapify(largest);
 	}
 }
@@ -82,11 +80,12 @@ void HeapSort::_heapsort()
 
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
-// just functions
 
-///堆性质的维护
+// procedure functions
+///堆性质的维护, 对节点i做维护操作。前提假设：i节点以下已经满足最大堆的性质
 void max_heapify(int arr[], int i, int heapsize)
 {
+	// begin with 0 index.
 	int left_child = 2*i+1;
 	int right_child = 2*i+2;
 	int largest = i;
@@ -100,8 +99,7 @@ void max_heapify(int arr[], int i, int heapsize)
 	}
 	if (i != largest)
 	{
-		using std::swap;
-		swap(arr[i], arr[largest]);
+		std::swap(arr[i], arr[largest]);
 		max_heapify(arr, largest, heapsize);
 	}
 }
@@ -122,13 +120,15 @@ void min_heapify(int arr[], int i, int heapsize)
 
     if (least != i)
     {
-    	using std::swap;
-    	swap(arr[i], arr[least]);
+	   	std::swap(arr[i], arr[least]);
     	min_heapify(arr, least, heapsize);
     }
 
 }
 ///建堆，时间复杂度为O(n)
+///当用数组表示存储n个元素的堆时， 叶节点的下标应该表示为： (n/2 表示n/2向下取整)
+/// begin with 1: n/2+1, n/2+2, ...
+/// begin with 0: n/2, n/2+1, ...
 void build_max_heap(int arr[], int heapsize)
 {
 	for (int i = (heapsize / 2 -1); i >= 0 ; --i)
@@ -150,10 +150,9 @@ void heapsort(int arr[], int heapsize)
 	build_max_heap(arr, heapsize);
 	for (int i = heapsize-1; i >= 1; --i)
 	{
-		using std::swap;
 		std::swap(arr[0], arr[i]);
 		//min_heapify(arr, 0, i);
-		max_heapify(arr, 0, i);
+		max_heapify(arr, 0, i); // i: heapsize - 1
 	}
 }
 
