@@ -26,6 +26,8 @@ void countingsort(int arr[], int len)
 
 	int curr = 0;
 	int num = 0;
+	//注意：采用此种喜欢方式，counting sort为 不稳定 排序方式
+	//     curr变量应该倒着遍历，并放置元素(as text of intro to algo does)，为稳定的排序
 	while(curr < len)
 	{
 		while(counting_array[num] > 0)
@@ -40,17 +42,6 @@ void countingsort(int arr[], int len)
 		}
 		num++;	
 	}
-
-	/*
-	for (int curr = 0; curr < max; curr++)
-	{
-		int num  = 0;
-		while(counting_array[curr] > 0)
-		{
-
-		}
-	}*/
-
 	delete[] counting_array;
 
 }
