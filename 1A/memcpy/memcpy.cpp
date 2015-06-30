@@ -41,10 +41,6 @@ void mymemcpy(void *dst, const void *src, size_t num)
 		}
 	}
 
-	while(num-- > 0)
-	{
-		*pdst++ = *psrc++;
-	}
 }
 
 // optimize this code 
