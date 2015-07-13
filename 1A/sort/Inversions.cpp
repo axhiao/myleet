@@ -1,38 +1,9 @@
+#include <iostream>
+#include <limits>
+
+using namespace std;
 
 
-### 1. Given a set S and an integer x, decide whether there are two elements in S whose sum equals x. Time limit: theta(n*logn).
-   
-+ sort S
-+ S'={x-si | si in S}.
-+ sort S'
-+ if the same value appears in both S and S', then yes.
-
-
-
-### 2. stability in sort algo
-
-+ stable: bubble, insert, radix, merge, bucket, counting
-+ instable: select, quick, heap, shell
-
-
-
-### 3. Inversions
-
-```
-COUNT-INVERSIONS(A, p, r)
-
-inversions = 0
-if p<r
-   then q = (p+r)/2
-        inversions = inversions + COUNT-INVERSIONS(A, p, q)
-	inversions = inversions + COUNT-INVERSIONS(A, q+1, r)
-        inversions = inversions + Merge-Inversions(A, p, q, r)
-   return inversions
-```
-
-
-
-```c++
 int merge_inversions(int arr[], int p, int q, int r)
 {
 	int nl = q - p + 1;
@@ -79,6 +50,24 @@ int merge_inversions(int arr[], int p, int q, int r)
 	delete[] R;
 	return inv_cnt;
 }
-```
 
+int count_inversions(int arr[], int p, int r)
+{
+	int inversions = 0;
+	if (p < r)
+	{
+		int q = (p + r) / 2;
+		inversions += count_inversions(arr, p, q);
+		inversions += count_inversions(arr, q+1, r);
+		inversions += merge_inversions(arr, p, q, r);
+	}
+	return inversions;
+}
+int main()
+{
+	int arr[] = {2, 3, 8, 6, 1};
 
+	cout << count_inversions(arr, 0, 4) << endl;
+
+	return 0;
+}
