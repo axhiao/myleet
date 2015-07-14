@@ -19,5 +19,5 @@
 
 9. 剑指offer中的各种算法习题. [click me](./sword_to_offer)
 
-
+10. 排序之后相邻两数的最大差值. [click me](./maxGap)
 
