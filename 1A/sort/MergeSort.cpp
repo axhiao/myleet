@@ -37,6 +37,8 @@ void merge(int arr[], int p, int q, int r)
 			j++;
 		}
 	}
+	delete[] arr1;
+	delete[] arr2;
 }
 void mergeSort(int arr[],int p, int r)
 {
