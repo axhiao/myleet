@@ -34,6 +34,7 @@ int kth_largest(int arr[], int low, int high, int kth)
 		}
 	}
 	std::swap(arr[low], arr[m]);
+
 	// 3 situations
 	if (kth < cnt)
 	{
@@ -61,27 +62,46 @@ int kth_largest(int arr[], int low, int high, int kth)
 * 9 else return RANDOMIZED-SELECT(A, q+1, r, i-k)
 */
 
-int partition(int arr[], int low, int high) // arr[left] <= pivot, arr[right] > pivot
+// int partition(int arr[], int low, int high) // arr[left] <= pivot, arr[right] > pivot
+// {
+// 	srand(time(0));
+// 	int rj = low + rand()%(high - low + 1);
+// 	std::swap(arr[rj], arr[high]);
+
+// 	int l = low - 1;
+// 	int r = high;
+// 	while(1)
+// 	{
+// 		while(arr[++l] < arr[high]);
+// 		while(l < r && arr[--r] >= arr[high]);
+// 		if(r <= l)
+// 			break;
+
+// 		std::swap(arr[l], arr[r]);
+// 	}
+// 	std::swap(arr[l], arr[high]);
+// 	return l;
+// }
+int partition(int arr[], int p, int r)
 {
 	srand(time(0));
-	int rj = low + rand()%(high - low + 1);
-	std::swap(arr[rj], arr[high]);
+	int rd = p + rand() % (r - p + 1);
+	std::swap(arr[rd], arr[r]);
 
-	int l = low - 1;
-	int r = high;
-	while(1)
+	int pivot = arr[r];
+	int k = p - 1;
+	for (int i = p; i < r; i++)
 	{
-		while(arr[++l] < arr[high]);
-		while(l < r && arr[--r] >= arr[high]);
-		if(r <= l)
-			break;
-
-		std::swap(arr[l], arr[r]);
+		if (arr[i] >= pivot)
+		{
+			k++;
+			std::swap(arr[k], arr[i]);
+		}
 	}
-	std::swap(arr[l], arr[high]);
-	return l;
+	std::swap(arr[k+1], arr[r]);
+	return k+1;
 }
-int randomized_select(int arr[], int p, int r, int kth)
+int randomized_select(int arr[], int p, int r, int kth) // kth-smallest
 {
 	if (kth <= 0 || kth > (r - p +1))
 		throw range_error("order statistic kth is out of range");
@@ -89,7 +109,7 @@ int randomized_select(int arr[], int p, int r, int kth)
 		return arr[p];
 
 	int q = partition(arr, p, r);
-	int left_len = q - p + 1;
+	int left_len = q - p + 1; // including q
 
 	if (kth < left_len)
 	{
@@ -115,8 +135,8 @@ int main()
 	int len = sizeof(arr)/sizeof(int);
 
 
-	// order of midia = (len + 1)/2 
-	cout << randomized_select(arr, 0, len - 1, (len + 1)/2) << endl;
+	// order of midia = len/2 
+	cout << randomized_select(arr, 0, len - 1, (len +1 )/ 2 ) << endl;
 
 	/*
 	cout << kth_largest(arr, 0, 6, 1) << endl;
@@ -127,7 +147,8 @@ int main()
 	cout << kth_largest(arr, 0, 6, 6) << endl;
 	cout << kth_largest(arr, 0, 6, 7) << endl;
 	*/
-	//cout << kth_largest(a, 0, len - 1, 3) << endl;
+
+	//cout << kth_largest(arr, 0, len - 1, 3) << endl;
 
 	for (int i = 0; i < len; i++)
 	{
